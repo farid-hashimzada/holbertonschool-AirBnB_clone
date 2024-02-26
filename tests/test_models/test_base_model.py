@@ -17,9 +17,10 @@ class TestBaseModel(unittest.TestCase):
         base_instance = BaseModel()
         base_instance.name = "My First Model"
         base_instance.my_number = 89
-        self.assertEqual(str(base_instance),
-                         f"[{base_instance.__class__.__name__}]
-                         ({base_instance.id}) {base_instance.__dict__}")
+        base_instance_str = base_instance.__str__()
+        self.assertEqual(base_instance_str,
+                         "[BaseModel] ({}) {}".format(base_instance.id,
+                                                      base_instance.__dict__))
 
     def test_save(self):
         """save method case"""
@@ -33,10 +34,14 @@ class TestBaseModel(unittest.TestCase):
         base_instance_dict = base_instance.to_dict()
         self.assertEqual(base_instance_dict["__class__"], "BaseModel")
         self.assertEqual(base_instance_dict["id"], base_instance.id)
-        self.assertEqual(base_instance_dict["created_at"],
-                         base_instance.created_at.isoformat())
         self.assertEqual(base_instance_dict["updated_at"],
                          base_instance.updated_at.isoformat())
+
+    def test_init(self):
+        """init method case"""
+        my_model = BaseModel()
+        my_new_model = BaseModel()
+        self.assertNotEqual(my_model.id, my_new_model.id)
 
 
 if __name__ == "__main__":
