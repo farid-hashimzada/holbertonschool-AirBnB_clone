@@ -15,8 +15,8 @@ class SysConsole(cmd.Cmd):
         """EOF command to exit program"""
         return True
 
-    def do_help(self, arg: str) -> bool | None:
-        """Help command  show help message"""
+    def do_help(self, arg):
+        """Help command"""
         return super().do_help(arg)
 
     def emptyline(self) -> bool:
