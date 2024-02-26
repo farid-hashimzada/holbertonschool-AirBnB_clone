@@ -18,6 +18,10 @@ class TestConsole(unittest.TestCase):
     def test_emptyline(self):
         """Test emptyline method"""
         self.assertFalse(SysConsole().emptyline())
+    
+    def test_help(self):
+        """Test help method"""
+        self.assertIsNone(SysConsole().do_help(''))
 
 
 if __name__ == "__main__":
