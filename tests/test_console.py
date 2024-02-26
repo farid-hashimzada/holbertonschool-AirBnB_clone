@@ -18,3 +18,7 @@ class TestConsole(unittest.TestCase):
     def test_emptyline(self):
         """Test emptyline method"""
         self.assertFalse(SysConsole().emptyline())
+
+
+if __name__ == "__main__":
+    unittest.main()
