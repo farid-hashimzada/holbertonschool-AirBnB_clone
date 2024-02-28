@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import cmd
-"""Console module"""
 
+"""Console module"""
+import cmd
 
 class SysConsole(cmd.Cmd):
     """Console class"""
