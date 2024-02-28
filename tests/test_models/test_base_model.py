@@ -27,6 +27,12 @@ class TestBaseModel(unittest.TestCase):
         """save method case"""
         base_instance = BaseModel()
         base_instance.save()
+        self.assertNotEqual(base_instance.created_at, base_instance.updated_at)
+
+    def test_save_storage(self):
+        """save method case"""
+        base_instance = BaseModel()
+        base_instance.save()
         self.assertIn("BaseModel." + base_instance.id, storage.all())
 
     def test_to_dict(self):
