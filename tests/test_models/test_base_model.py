@@ -1,12 +1,20 @@
 #!/usr/bin/python3
 """Unittest for base model"""
 import unittest
+import os
 from models.base_model import BaseModel
 from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
     """Class to test base model module"""
+    
+    def setUp(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+
     def test_base(self):
         """Test base case"""
         base_instance = BaseModel()
