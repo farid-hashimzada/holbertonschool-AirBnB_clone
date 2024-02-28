@@ -27,8 +27,9 @@ class FileStorage:
     def reload(self):
         try:
             with open(self.__file_path, "r") as file:
-                des_object = json.load(file)
+                file_content = file.read()
+            des_object = json.loads(file_content)
             for key, value in des_object.items():
                 self.__objects[key] = eval(value["__class__"])(**value)
-        except FileNotFoundError:
+        except Exception:
             pass
