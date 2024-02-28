@@ -32,6 +32,14 @@ class TestFileStorage(unittest.TestCase):
             file_content = json.load(file)
         self.assertIn("BaseModel." + obj.id, file_content)
 
+    def test_reload(self):
+        """Test reload method"""
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+        storage.reload()
+        self.assertIn("BaseModel." + obj.id, storage.all())
+
 
 if __name__ == "__main__":
     unittest.main()
