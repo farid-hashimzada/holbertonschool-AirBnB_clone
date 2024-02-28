@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """State class"""
-from models.base_model import Base
+from models.base_model import BaseModel
 
 
-class State(Base):
+class State(BaseModel):
     """State class"""
     pass

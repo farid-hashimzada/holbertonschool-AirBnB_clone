@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """City class"""
-from models.base_model import Base
+from models.base_model import BaseModel
 
 
-class City(Base):
+class City(BaseModel):
     """City class"""
     pass

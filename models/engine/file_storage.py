@@ -25,9 +25,9 @@ class FileStorage:
 
     def reload(self):
         try:
-            with open(self.__file_path, 'r') as file:
-                deser_object = json.load(file)
-            for key in deser_object.items():
-                self.__objects[key] = BaseModel(**deser_object[key])
+            with open(self.__file_path, "r") as file:
+                des_object = json.load(file)
+            for key, value in des_object.items():
+                self.__objects[key] = eval(value["__class__"])(**value)
         except Exception:
             pass
