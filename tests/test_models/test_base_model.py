@@ -32,16 +32,19 @@ class TestBaseModel(unittest.TestCase):
                                                       base_instance.__dict__))
 
     def test_save(self):
-        """save method case"""
+        """save method cases"""
         base_instance = BaseModel()
         base_instance.save()
         self.assertNotEqual(base_instance.created_at, base_instance.updated_at)
 
     def test_save_storage(self):
-        """save method case"""
-        base_instance = BaseModel()
-        base_instance.save()
-        self.assertIn("BaseModel." + base_instance.id, storage.all())
+        """save method case with storage"""
+        base_model = BaseModel()
+        base_model.name = "My_First_Model"
+        base_model.my_number = 89
+        base_model.save()
+        self.assertTrue(os.path.exists("file.json"))
+        self.assertIn("BaseModel." + base_model.id, storage.all())
 
     def test_to_dict(self):
         """to_dict method case"""
