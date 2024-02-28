@@ -27,7 +27,7 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as file:
                 deser_object = json.load(file)
-            for key in deser_object.items:
+            for key in deser_object.items():
                 self.__objects[key] = BaseModel(**deser_object[key])
         except Exception:
             pass
