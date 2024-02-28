@@ -9,7 +9,7 @@ The command interpreter is a tool to manage the whole application. It can be use
 - Retrieve an object from a file, a database etc...
 - Do operations on objects
 - Update attributes of an object
-- Destroy an object
+- Destroy an object.
 
 ### How to start the console
 The console is a command line interpreter. To start the console, you need to run the following command:
