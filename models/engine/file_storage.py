@@ -2,6 +2,7 @@
 """FileStorage class"""
 import json
 from models.base_model import BaseModel
+from models.amenity import Amenity
 
 
 class FileStorage:
@@ -29,5 +30,5 @@ class FileStorage:
                 des_object = json.load(file)
             for key, value in des_object.items():
                 self.__objects[key] = eval(value["__class__"])(**value)
-        except Exception:
+        except FileNotFoundError:
             pass
