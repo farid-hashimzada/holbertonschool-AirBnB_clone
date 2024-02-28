@@ -18,5 +18,3 @@ The console is a command line interpreter. To start the console, you need to run
 ```
 ### How to use the console
 The console works in interactive mode and non-interactive mode. In interactive mode  the console displays a prompt and waits for the user to type a command. A command is a single line of text that the user types in the command line. Each command is composed of a command name and a list of arguments  all separated by a space. For non-interactive mode  the console can be used to execute a command from a file. The command interpreter can be executed in non-interactive mode by calling the command interpreter with a command file as an argument. The command interpreter will read the file and execute the commands inside it.
-
-
