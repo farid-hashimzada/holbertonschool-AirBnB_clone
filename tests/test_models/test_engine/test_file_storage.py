@@ -2,14 +2,35 @@
 """Unittest for file_storage"""
 import unittest
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from models import storage
+import json
 
 
 class TestFileStorage(unittest.TestCase):
     """Class to test file storage module"""
-    def test_file_storage(self):
-        """Test file storage class"""
-        file_storage_instance = FileStorage()
-        self.assertIsInstance(file_storage_instance, FileStorage)
+    def setUp(self):
+        """Set up test method"""
+        self.file_storage_instance = FileStorage()
+
+    def test_all(self):
+        """Test all method"""
+        self.assertEqual(self.file_storage_instance.all(), {})
+
+    def test_new(self):
+        """Test new method"""
+        obj = BaseModel()
+        storage.new(obj)
+        self.assertIn("BaseModel." + obj.id, storage.all())
+
+    def test_save(self):
+        """Test save method"""
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+        with open("file.json", "r") as file:
+            file_content = json.load(file)
+        self.assertIn("BaseModel." + obj.id, file_content)
 
 
 if __name__ == "__main__":
