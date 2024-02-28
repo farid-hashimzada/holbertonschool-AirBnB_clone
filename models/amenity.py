@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Amenity class"""
-from models.base_model import Base
+from models.base_model import BaseModel
 
 
-class Amenity(Base):
+class Amenity(BaseModel):
     """Amenity class"""
     pass

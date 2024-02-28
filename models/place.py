@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Place class"""
-from models.base_model import Base
+from models.base_model import BaseModel
 
 
-class Place(Base):
+class Place(BaseModel):
     """Place class"""
     pass
