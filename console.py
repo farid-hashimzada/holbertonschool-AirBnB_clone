@@ -58,7 +58,7 @@ class SysConsole(cmd.Cmd):
         if not arg:
             print("** class name missing **")
         elif lines[0] not in BaseModel.__name__:
-            print("** class doesn't exist ** ")
+            print("** class doesn't exist **")
         elif len(lines) < 2:
             print("** instance id missing **")
         else:
