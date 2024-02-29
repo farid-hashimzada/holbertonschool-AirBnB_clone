@@ -77,6 +77,29 @@ class SysConsole(cmd.Cmd):
             for key, value in storage.all().items():
                 print(value)
 
+    def do_update(self, arg):
+        """Update att"""
+        lines = arg.split(" ")
+        if not arg:
+            print("** class name missing **")
+        elif lines[0] not in BaseModel.__name__:
+            print("** class doesn't exist **")
+        elif len(lines) < 2:
+            print("** instance id missing **")
+        elif len(lines) < 3:
+            print("** attribute name missing **")
+        elif len(lines) < 4:
+            print("** value missing **")
+        else:
+            key = lines[0] + "." + lines[1]
+            if key in storage.all():
+                instance = storage.all()[key]
+                attribute_name = lines[2]
+                attribute_value = lines[3]
+                setattr(instance, attribute_name, attribute_value)
+            else:
+                print("** no instance found **")
+
 
 if __name__ == '__main__':
     SysConsole().cmdloop()
