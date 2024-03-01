@@ -26,13 +26,16 @@ class FileStorage:
         with open(self.__file_path, "w") as file:
             json.dump(ser_object, file)
 
-    def reload(self):
-        """ Reload objects from file"""
-        try:
-            with open(self.__file_path, "r") as file:
-                file_content = file.read()
-            des_object = json.loads(file_content)
-            for key, value in des_object.items():
-                self.__objects[key] = eval(value["__class__"])(**value)
-        except Exception:
-            pass
+     def reload(self):
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "r") as f:
+                for key, value in json.load(f).items():
+                    value = eval(key.split(".")[0])(**value)
+                    self.__objects[key] = value
