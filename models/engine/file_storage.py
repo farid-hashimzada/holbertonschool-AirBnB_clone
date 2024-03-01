@@ -26,7 +26,7 @@ class FileStorage:
         with open(self.__file_path, "w") as file:
             json.dump(ser_object, file)
 
-     def reload(self):
+    def reload(self):
         """ Reload objects from file"""
         try:
             with open(self.__file_path, "r") as file:
