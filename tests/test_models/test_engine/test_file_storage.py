@@ -12,7 +12,7 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         try:
             os.remove("file.json")
-        except IOError: 
+        except IOError:
             pass
 
     def test_all(self):
@@ -20,7 +20,6 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         new_storage = storage.all()
         self.assertIsInstance(new_storage, dict)
-        
 
     def test_new(self):
         """Test new method"""
@@ -28,7 +27,6 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         storage.new(obj)
         self.assertIn(obj, storage.all().values())
-
 
     def test_save(self):
         """Test save method"""
@@ -38,7 +36,7 @@ class TestFileStorage(unittest.TestCase):
         storage.save()
         with open("file.json", "r") as file:
             self.assertIn("BaseModel." + obj.id, file.read())
-    
+
 
 if __name__ == "__main__":
     unittest.main()

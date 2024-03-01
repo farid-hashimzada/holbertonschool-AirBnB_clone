@@ -8,7 +8,7 @@ from models import storage
 
 class TestBaseModel(unittest.TestCase):
     """Class to test base model module"""
-    
+
     def setUp(self):
         try:
             os.remove("file.json")
