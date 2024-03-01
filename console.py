@@ -3,11 +3,19 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class SysConsole(cmd.Cmd):
     """Console class"""
     prompt = '(hbnb) '
+    __classes = ["BaseModel", "User", "State",
+                 "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
         """Quit command to exit program"""
@@ -29,10 +37,10 @@ class SysConsole(cmd.Cmd):
         """Create command"""
         if not arg:
             print("** class name missing **")
-        elif arg not in BaseModel.__name__:
+        elif arg not in self.__classes:
             print("** class doesn't exist **")
         else:
-            new = BaseModel()
+            new = eval(arg)()
             new.save()
             print(new.id)
 
@@ -41,7 +49,7 @@ class SysConsole(cmd.Cmd):
         lines = arg.split(" ")
         if not arg:
             print("** class name missing **")
-        elif lines[0] not in BaseModel.__name__:
+        elif lines[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(lines) < 2:
             print("** instance id missing **")
@@ -57,7 +65,7 @@ class SysConsole(cmd.Cmd):
         lines = arg.split(" ")
         if not arg:
             print("** class name missing **")
-        elif lines[0] not in BaseModel.__name__:
+        elif lines[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(lines) < 2:
             print("** instance id missing **")
@@ -71,7 +79,7 @@ class SysConsole(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all string repr"""
-        if arg not in BaseModel.__name__:
+        if arg not in self.__classes:
             print("** class doesn't exist **")
         else:
             for key, value in storage.all().items():
@@ -82,7 +90,7 @@ class SysConsole(cmd.Cmd):
         lines = arg.split(" ")
         if not arg:
             print("** class name missing **")
-        elif lines[0] not in BaseModel.__name__:
+        elif lines[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(lines) < 2:
             print("** instance id missing **")
