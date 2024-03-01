@@ -1,52 +1,35 @@
-#!/usr/bin/python3
-"""Unittest for file_storage"""
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-from models.amenity import Amenity
-import os
 
 
 class TestFileStorage(unittest.TestCase):
-    """Class to test file storage module"""
+    """Test the FileStorage class"""
     def setUp(self):
-        try:
-            os.remove("file.json")
-        except IOError:
-            pass
+        self.storage = FileStorage()
 
     def test_all(self):
-        """Test all method"""
-        my_model = BaseModel()
-        storage = FileStorage()
-        storage.new(my_model)
-        self.assertIn("BaseModel." + my_model.id, storage.all().keys())
+        self.assertIsInstance(self.storage.all(), dict)
 
     def test_new(self):
-        """Test new method"""
         obj = BaseModel()
-        storage = FileStorage()
-        storage.new(obj)
-        self.assertIn(obj, storage.all().values())
+        self.storage.new(obj)
+        self.assertIn('BaseModel.' + obj.id, self.storage.all())
 
     def test_save(self):
-        """Test save method"""
         obj = BaseModel()
-        storage = FileStorage()
-        storage.new(obj)
-        storage.save()
-        with open("file.json", "r") as file:
-            self.assertIn("BaseModel." + obj.id, file.read())
+        self.storage.new(obj)
+        self.storage.save()
+        with open('file.json', 'r') as f:
+            self.assertIn('BaseModel.' + obj.id, f.read())
 
     def test_reload(self):
-        """Test reload method"""
         obj = BaseModel()
-        storage = FileStorage()
-        storage.new(obj)
-        storage.save()
-        storage.reload()
-        self.assertIn("BaseModel." + obj.id, storage.all().keys())
+        self.storage.new(obj)
+        self.storage.save()
+        self.storage.reload()
+        self.assertIn('BaseModel.' + obj.id, self.storage.all())
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
