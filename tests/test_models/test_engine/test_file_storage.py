@@ -3,6 +3,7 @@
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.amenity import Amenity
 from models import storage
 import os
 
@@ -36,6 +37,18 @@ class TestFileStorage(unittest.TestCase):
         storage.save()
         with open("file.json", "r") as file:
             self.assertIn("BaseModel." + obj.id, file.read())
+
+    def test_reload(self):
+        """Tests for reload method"""
+        storage = FileStorage()
+        new_base = BaseModel()
+        new_amenity = Amenity()
+        storage.new(new_base)
+        storage.new(new_amenity)
+        old_objects = storage.all().copy()
+        storage.reload()
+        for key, obj in storage.all().items():
+            self.assertEqual(obj.to_dict(), old_objects[key].to_dict())
 
 
 if __name__ == "__main__":
