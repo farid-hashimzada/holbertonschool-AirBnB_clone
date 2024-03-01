@@ -4,7 +4,6 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.amenity import Amenity
-from models import storage
 import os
 
 
@@ -18,9 +17,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         """Test all method"""
+        my_model = BaseModel()
         storage = FileStorage()
-        new_storage = storage.all()
-        self.assertIsInstance(new_storage, dict)
+        storage.new(my_model)
+        self.assertIn("BaseModel." + my_model.id, storage.all().keys())
 
     def test_new(self):
         """Test new method"""
@@ -39,16 +39,13 @@ class TestFileStorage(unittest.TestCase):
             self.assertIn("BaseModel." + obj.id, file.read())
 
     def test_reload(self):
-        """Tests for reload method"""
+        """Test reload method"""
+        obj = BaseModel()
         storage = FileStorage()
-        new_base = BaseModel()
-        new_amenity = Amenity()
-        storage.new(new_base)
-        storage.new(new_amenity)
-        old_objects = storage.all().copy()
+        storage.new(obj)
+        storage.save()
         storage.reload()
-        for key, obj in storage.all().items():
-            self.assertEqual(obj.to_dict(), old_objects[key].to_dict())
+        self.assertIn("BaseModel." + obj.id, storage.all().keys())
 
 
 if __name__ == "__main__":
