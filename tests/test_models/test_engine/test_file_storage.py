@@ -60,5 +60,3 @@ class TestFileStorage(unittest.TestCase):
         storage.reload()
 
         self.assertNotEqual(len(storage.objects), 0)
-
-# test_file_stoarage.py
