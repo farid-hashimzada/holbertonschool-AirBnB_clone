@@ -79,11 +79,13 @@ class SysConsole(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all string repr"""
-        if arg not in self.__classes:
-            print("** class doesn't exist **")
+        if not arg:
+            print([str(value) for value in storage.all().values()])
+        elif arg in self.__classes:
+            print([str(value) for key, value in storage.all().items()
+                   if key.startswith(arg)])
         else:
-            for key, value in storage.all().items():
-                print(value)
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Update att"""

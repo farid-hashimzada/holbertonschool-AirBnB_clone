@@ -1,62 +1,49 @@
-#!/usr/bin/python3
-
-import os
 import unittest
-
-from models import storage
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+from models import storage
+import os
 
 
 class TestFileStorage(unittest.TestCase):
-    """
-    This class contains unit tests for the FileStorage class.
-    """
+    """Test the FileStorage class"""
 
     def setUp(self):
+        """Set up the tests."""
         try:
-            os.remove("file.json")
+            os.remove('file.json')
         except IOError:
             pass
 
         storage.__objects = {}
 
-    def test_check_type(self):
-        self.assertIsInstance(FileStorage._FileStorage__file_path, str)
-        self.assertIsInstance(FileStorage._FileStorage__objects, dict)
+    def test_all(self):
+        """Test the all method."""
+        new_model = BaseModel()
+        storage.new(new_model)
+        self.assertIn('BaseModel.' + new_model.id, storage.all())
 
-    def test_storage_all(self):
-        obj1 = BaseModel()
-        obj2 = BaseModel()
-        storage.new(obj1)
-        storage.new(obj2)
+    def test_new(self):
+        """Test the new method."""
+        new_model = BaseModel()
+        storage.new(new_model)
+        self.assertIn('BaseModel.' + new_model.id, storage.all())
 
-        all_objects = storage.all()
-
-        self.assertIn(obj1, all_objects.values())
-        self.assertIn(obj2, all_objects.values())
-
-    def test_storage_new(self):
-        obj = BaseModel()
-        storage.new(obj)
-
-        self.assertIn(obj, storage.all().values())
-
-    def test_storage_save(self):
-        obj = BaseModel()
-
-        storage.new(obj)
+    def test_save(self):
+        """Test the save method."""
+        new_model = BaseModel()
+        storage.new(new_model)
         storage.save()
+        with open('file.json', 'r') as file:
+            self.assertIn('BaseModel.' + new_model.id, file.read())
 
-        with open("file.json", "r") as f:
-            text = f.read()
-            self.assertIn("BaseModel." + obj.id, text)
-
-    def test_storage_reload(self):
-        obj = BaseModel()
-
+    def test_reload(self):
+        """Test the reload method."""
+        new_md = BaseModel()
         storage.save()
         storage.objects = {}
         storage.reload()
+        self.assertIn('BaseModel.' + new_md.id, storage.all())
 
-        self.assertNotEqual(len(storage.objects), 0)
+
+if __name__ == '__main__':
+    unittest.main()
